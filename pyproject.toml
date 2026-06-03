@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools==64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SIGINT-RF-GenericTesting"
+version = "0.1.0"
+description = "Workspace: TDR from Touchstone .s1p files and optional SSBR GUI app."
+requires-python = "==3.14.5"
+authors = [{ name = "Enrico Barone" }]
+license = { text = "MIT" }
+package-mode = false
+
+# Minimum runtime dependencies (TDR script and processing)
+dependencies = [
+    "numpy==2.4.6",
+    "scipy>=1.10",
+    "matplotlib==3.10.9",
+    "scikit-rf==0.28",
+]
+
+[project.optional-dependencies]
+# SSBR GUI app (also requires `iceye.ssbr` / generated types under ssbr_app — not on PyPI).
+ssbr = [
+    "pyserial==3.5",
+]
+
+# Development dependencies
+dev = [
+    "pytest==7.4",
+    "pytest-cov==4.1",
+    "black>=23.0",
+    "ruff==0.1",
+    "mypy==1.5",
+]
+
+[project.scripts]
+tdr-from-s1p = "tdr_from_s1p:main"
+
+[tool.setuptools.package-dir]
+"" = "TDR"
+
+[tool.setuptools]
+py-modules = ["tdr_from_s1p"]
+
+[tool.black]
+line-length = 100
+target-version = ["py314"]
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+select = ["E", "F", "W"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
