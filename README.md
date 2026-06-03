@@ -18,6 +18,30 @@ git config --global user.email "carlos.masia@iceye.com"
 ```
 
 Verify your configuration:
+## Modules
+
+- `TDR/`
+	- `tdr_from_s1p.py`: Main CLI script. Orchestrates the TDR pipeline: reads `.s1p` files (via `s1p_reader`), runs DSP/IRFFT pipeline, and dispatches visualization to `plot_graph`.
+	- `s1p_reader.py`: Touchstone `.s1p` file reader and preprocessing (DC extrapolation, interpolation to uniform frequency grid).
+	- `plot_graph.py`: Visualization layer — provides `plot_tdr()` which dispatches to either Matplotlib or Plotly backends. Configure the default backend with the `PLOT_BACKEND` constant or override with `--backend` on the CLI.
+	- `dsptools/`: DSP helper utilities (Kaiser window implementation and helpers).
+
+- `ssbr_app/`: Optional SSBR GUI application and generated types (UAVCAN/CYPHAL definitions). Not used by the TDR scripts.
+
+## Using / Installing Additional Libraries
+
+This project uses Poetry for dependency management. To add a new library to the project and install it in the active virtual environment, use `poetry add` (example below):
+
+```powershell
+poetry add plotly     # adds plotly to pyproject.toml and installs it
+poetry add some_pkg@^1.2.3
+```
+
+## Component Interaction (Architecture)
+
+The diagram below shows the high-level flow between modules when running the TDR script.
+
+
 ```powershell
 git config --global --list
 ```

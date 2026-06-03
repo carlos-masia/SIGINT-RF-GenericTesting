@@ -1,2 +1,3 @@
 .venv
 ssbr_app
+./TDR/__pycache__
